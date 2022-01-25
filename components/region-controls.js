@@ -7,10 +7,10 @@ const AverageDisplay = ({ band, data: { loading, value } }) => {
     return 'loading...'
   }
 
-  if (!value.lightscore || !value.lightscore) {
+  if (!value[band] || !value[band]) {
     throw new Error('Value not present')
   }
-  const activeData = value.lightscore
+  const activeData = value[band]
 
   let result
   const filteredData = activeData.filter((d) => d !== -3.3999999521443642e38)

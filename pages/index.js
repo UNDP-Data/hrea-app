@@ -12,7 +12,7 @@ const Index = () => {
   const { theme } = useThemeUI()
   const [display, setDisplay] = useState(true)
   const [opacity, setOpacity] = useState(1)
-  const [clim, setClim] = useState([-20, 30])
+  const [clim, setClim] = useState([0, 1])
   const [month, setMonth] = useState(1)
   const [band, setBand] = useState('lightscore')
   const [colormapName, setColormapName] = useState('warm')
