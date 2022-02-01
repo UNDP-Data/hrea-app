@@ -7,7 +7,6 @@ import RegionControls from '../components/region-controls'
 import ParameterControls from '../components/parameter-controls'
 
 const bucket = 'https://storage.googleapis.com/carbonplan-share/'
-
 const Index = () => {
   const { theme } = useThemeUI()
   const [display, setDisplay] = useState(true)
@@ -61,10 +60,11 @@ const Index = () => {
             display={display}
             opacity={opacity}
             mode={'texture'}
+            //source={'https://undpngddlsgeohubdev01.blob.core.windows.net/test/zarr/Kenya/lightscore'}
             source={'http://localhost:8000'}
-            //source={bucket + 'maps-demo/4d/tavg-prec-month'}
             //source={'https://undpngddlsgeohubdev01.blob.core.windows.net/test/kenyazarr/Data/a'}
             variable={'lightscore'}
+            //variable={'lightscore'}
             //selector={{ month, band }}
             setRegionData={setRegionData}
           />

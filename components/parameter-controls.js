@@ -12,17 +12,21 @@ const sx = {
     mt: [3],
   },
 }
+const BANDS = {
+    lightscore:{'max': 1, 'min': 0, 'default_colormap':'warm'},
+    //prec:{'max': 300, 'min': 0, 'default_colormap': 'cool'}
+}
 
+
+// The following constants have to be changed manually as new data is being added
 const CLIM_RANGES = {
-  KENYAZARR: { max: 1, min: 0},
-  lightscore: { max: 30, min: -20 },
+  lightscore: { max: 1, min: 0 },
   prec: { max: 300, min: 0 },
 }
 
 const DEFAULT_COLORMAPS = {
   lightscore: 'warm',
   prec: 'cool',
-  KENYAZARR: 'warm',
 }
 
 const ParameterControls = ({ getters, setters }) => {
@@ -39,8 +43,8 @@ const ParameterControls = ({ getters, setters }) => {
   const handleBandChange = useCallback((e) => {
     const band = e.target.value
     setBand(band)
-    setClim([CLIM_RANGES[band].min, CLIM_RANGES[band].max])
-    setColormapName(DEFAULT_COLORMAPS[band])
+    setClim([BANDS[band]['min'], BANDS[band]['max']])
+    setColormapName(BANDS[band]['default_colormap'])
   })
 
   return (
@@ -79,8 +83,8 @@ const ParameterControls = ({ getters, setters }) => {
         </Badge>
         <Box sx={sx.label}>Minimum</Box>
         <Slider
-          min={CLIM_RANGES[band].min}
-          max={CLIM_RANGES[band].max}
+          min={BANDS[band]['min']}
+          max={BANDS[band]['max']}
           step={1}
           sx={{ width: '175px', display: 'inline-block' }}
           value={clim[0]}
@@ -102,8 +106,8 @@ const ParameterControls = ({ getters, setters }) => {
         </Badge>
         <Box sx={sx.label}>Maximum</Box>
         <Slider
-          min={CLIM_RANGES[band].min}
-          max={CLIM_RANGES[band].max}
+          min={BANDS[band]['min']}
+          max={BANDS[band]['max']}
           step={1}
           sx={{ width: '175px', display: 'inline-block' }}
           value={clim[1]}
@@ -150,10 +154,17 @@ const ParameterControls = ({ getters, setters }) => {
           size='xs'
           onChange={handleBandChange}
           sx={{ mt: [1] }}
-          value={band}
-        >
-          <option value='KENYAZARR'>KENYAZARR</option>
-          <option value='prec'>Another Parameter</option>
+          value={band}>
+            {/*{BANDS.map((d) => (
+                <option key={d["name"]}>{d["name"]}</option>
+            ))}*/}
+            {Object.keys(BANDS).map((band, index) => (
+                <option key={band}>{band}</option>
+            ))}
+            {/*ToDo: Create a map function to generate options depending on the number of bands added*/}
+
+            {/*<option value='KENYAZARR'>KENYAZARR</option>
+          <option value='prec'>Another Parameter</option>*/}
         </Select>
 
         <Box sx={{ ...sx.label, mt: [4] }}>Colormap</Box>
@@ -167,9 +178,6 @@ const ParameterControls = ({ getters, setters }) => {
             <option key={d.name}>{d.name}</option>
           ))}
         </Select>
-        {/*<Box sx={{ ...sx.label, mt: [4] }}>
-          <Link href='https://github.com/carbonplan/maps'>CODE ON Github</Link>
-          </Box>*/}
       </Box>
     </>
   )
