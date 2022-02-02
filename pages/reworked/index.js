@@ -1,16 +1,15 @@
 import { useState } from 'react'
-import { Box, useThemeUI, Flex } from 'theme-ui'
+import { Box, useThemeUI } from 'theme-ui'
+import { useBreakpointIndex } from '@theme-ui/match-media'
 import { Dimmer, Meta } from '@carbonplan/components'
 import { Map, Raster, Line, RegionPicker } from '@carbonplan/maps'
 import { useColormap } from '@carbonplan/colormaps'
-import ParameterControls from 'components/parameter-controls'
-import RegionControls from 'components/region-controls'
+import RegionControls from '../components/region-controls'
+import ParameterControls from '../components/parameter-controls'
+
 
 const bucket = 'https://storage.googleapis.com/carbonplan-share/'
-
-
 const Index = () => {
-
     const { theme } = useThemeUI()
     const [display, setDisplay] = useState(true)
     const [opacity, setOpacity] = useState(1)
@@ -31,7 +30,7 @@ const Index = () => {
         setBand,
         setColormapName,
     }
-
+    const index = useBreakpointIndex()
     return (
         <>
             <Meta
@@ -41,8 +40,8 @@ const Index = () => {
                 }
                 title={'UNDP Data - HREA'}
             />
-            <Flex
-                sx={{
+            <div
+                style={{
                     position: 'absolute',
                     left: 0,
                     right: 0,
@@ -53,8 +52,9 @@ const Index = () => {
                     margin: 'auto',
                 }}
             >
+
                 <ParameterControls getters={getters} setters={setters} />
-            </Flex>
+            </div>
             {/*<Box sx={{position:"absolute", width: '20%', left: '0', height:"100%"}}>
                 <ParameterControls getters={getters} setters={setters} />
             </Box>*/}
